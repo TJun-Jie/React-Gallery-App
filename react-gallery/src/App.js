@@ -16,15 +16,19 @@ class App extends Component{
     leavesPhoto: [],
     searchQuery: '',
     searchPhotos: [],
-    weedPhotos: []
+    weedPhotos: [],
+    loading: true
   }
 
   getDataWaterfall() {
+    this.setState({
+      loading: true
+    })
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=waterfall&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
     .then(response => {
-      console.log(response)
       this.setState({
-        waterfallPhotos: response.data.photos.photo
+        waterfallPhotos: response.data.photos.photo,
+        loading: false
       })
     })
     .catch(err => {
@@ -32,10 +36,14 @@ class App extends Component{
     })
   }
   getDataLeaves() {
+    this.setState({
+      loading: true
+    })
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=leaves&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
     .then(response => {
       this.setState({
-        leavesPhoto: response.data.photos.photo
+        leavesPhoto: response.data.photos.photo,
+        loading: false
       })
     })
     .catch(err => {
@@ -43,10 +51,14 @@ class App extends Component{
     })
   }
   getDataWeed() {
+    this.setState({
+      loading: true
+    })
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=weed&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
     .then(response => {
       this.setState({
-        weedPhotos: response.data.photos.photo
+        weedPhotos: response.data.photos.photo,
+        loading: false
       })
     })
     .catch(err => {
@@ -57,10 +69,14 @@ class App extends Component{
 
 
   performSearch = (query='deer') => {
+    this.setState({
+      loading: true
+    })
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
     .then(response => {
       this.setState({
         searchPhotos: response.data.photos.photo,
+        loading:false
       })
     })
     .catch(err => {
@@ -69,8 +85,10 @@ class App extends Component{
   }
 
   componentDidMount() {
-    this.getDataWaterfall()
-    this.getDataLeaves()
+    this.getDataWaterfall();
+    this.getDataLeaves();
+    this.getDataWeed();
+    this.performSearch();
 
   }
 
@@ -83,18 +101,22 @@ class App extends Component{
     })
   }
 
-  
-
   render() {
 
     return (
       
         <div className="Container">
           <SearchForm handleSearch={this.handleSearch} />
-          
-          <Nav /> 
+          <Nav />
+          {this.state.loading
+            ? <div className="loader"></div>
+            : ''
+          }
           <Switch>
-            <Route path="/search">
+            <Route exact path="/">
+              <PhotoContainer photoArr={this.state.searchPhotos}></PhotoContainer>
+            </Route>
+            <Route path="/search/:tag">
               <PhotoContainer photoArr={this.state.searchPhotos}></PhotoContainer>
             </Route>
             <Route path="/waterfall">
