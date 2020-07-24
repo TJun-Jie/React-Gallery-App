@@ -1,9 +1,10 @@
 import React from 'react';
 
-function Photo(props) {
+function Photo({ farm, serverId, secret,id}) {
+    
     return(
         <li>
-            <img src="https://farm5.staticflickr.com/4334/37032996241_4c16a9b530.jpg" alt="" />
+            <img src={`https://farm${farm}.staticflickr.com/${serverId}/${id}_${secret}.jpg`} alt="" />
         </li>
     )
 }
