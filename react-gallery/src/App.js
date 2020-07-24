@@ -115,7 +115,7 @@ class App extends Component{
             }
             <Switch>
               <Route exact path="/" render={() => <PhotoContainer photoArr={this.state.searchPhotos} name={this.state.searchQuery}/> } />
-              <Route exact path="/search/:tag" render={() => <PhotoContainer photoArr={this.state.searchPhotos} name={this.state.searchQuery} loading={this.state.loading}/> } />
+              <Route exact path="/search/:tag" render={(props) => <PhotoContainer photoArr={this.state.searchPhotos} match={props.match} name={this.state.searchQuery} loading={this.state.loading}/> } />
               <Route exact path="/waterfall" render={() => <PhotoContainer photoArr={this.state.waterfallPhotos} name='Waterfall'/> } />
               <Route exact path="/leaves" render={() => <PhotoContainer photoArr={this.state.leavesPhoto} name='Leaves'/> } />
               <Route exact path="/weed" render={() => <PhotoContainer photoArr={this.state.weedPhotos} name='Weed'/> } />
