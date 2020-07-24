@@ -12,36 +12,49 @@ import axios from 'axios';
 class App extends Component{
 
   state =  {
-    redirect: null,
-    catPhotos: [],
-    dogPhotos: [],
+    waterfallPhotos: [],
+    leavesPhoto: [],
     searchQuery: '',
-    searchPhotos: []
+    searchPhotos: [],
+    weedPhotos: []
   }
 
-  getDataCats() {
-    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=cats&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
+  getDataWaterfall() {
+    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=waterfall&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
     .then(response => {
       console.log(response)
       this.setState({
-        catPhotos: response.data.photos.photo
+        waterfallPhotos: response.data.photos.photo
       })
     })
     .catch(err => {
       console.log("Error parsing and fetching data")
     })
   }
-  getDataDogs() {
-    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=dogs&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
+  getDataLeaves() {
+    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=leaves&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
     .then(response => {
       this.setState({
-        dogPhotos: response.data.photos.photo
+        leavesPhoto: response.data.photos.photo
       })
     })
     .catch(err => {
       console.log("Error parsing and fetching data")
     })
   }
+  getDataWeed() {
+    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=weed&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
+    .then(response => {
+      this.setState({
+        weedPhotos: response.data.photos.photo
+      })
+    })
+    .catch(err => {
+      console.log("Error parsing and fetching data")
+    })
+  }
+
+
 
   performSearch = (query='deer') => {
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
@@ -56,9 +69,8 @@ class App extends Component{
   }
 
   componentDidMount() {
-    console.log('mount')
-    this.getDataCats()
-    this.getDataDogs()
+    this.getDataWaterfall()
+    this.getDataLeaves()
 
   }
 
@@ -85,14 +97,14 @@ class App extends Component{
             <Route path="/search">
               <PhotoContainer photoArr={this.state.searchPhotos}></PhotoContainer>
             </Route>
-            <Route path="/cats">
-              <PhotoContainer photoArr={this.state.catPhotos}></PhotoContainer>
+            <Route path="/waterfall">
+              <PhotoContainer photoArr={this.state.waterfallPhotos}></PhotoContainer>
             </Route>
-            <Route path="/dogs">
-              <PhotoContainer photoArr={this.state.dogPhotos}></PhotoContainer>
+            <Route path="/leaves">
+              <PhotoContainer photoArr={this.state.leavesPhoto}></PhotoContainer>
             </Route>
-            <Route path="/computers">
-              <PhotoContainer></PhotoContainer>
+            <Route path="/weed">
+              <PhotoContainer photoArr={this.state.weedPhotos} ></PhotoContainer>
             </Route>
             
           </Switch>

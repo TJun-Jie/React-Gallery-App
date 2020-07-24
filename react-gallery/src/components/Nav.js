@@ -5,9 +5,9 @@ function Nav(props) {
     return(
         <nav className="main-nav">
             <ul>
-                <li><NavLink to='/cats'>Cats</NavLink></li>
-                <li><NavLink to='/dogs'>Dogs</NavLink></li>
-                <li><NavLink to='/computers'>Computers</NavLink></li>
+                <li><NavLink to='/waterfall'>Waterfall</NavLink></li>
+                <li><NavLink to='/leaves'>Leaves</NavLink></li>
+                <li><NavLink to='/weed'>Weed</NavLink></li>
             </ul>
         </nav>
     )
