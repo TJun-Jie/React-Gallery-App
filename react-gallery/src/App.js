@@ -68,7 +68,7 @@ class App extends Component{
 
 
 
-  performSearch = (query='deer') => {
+  performSearch = (query) => {
     this.setState({
       loading: true
     })
@@ -92,13 +92,14 @@ class App extends Component{
 
   }
 
-  handleSearch= (query="deer") => {
+  handleSearch= (query) => {
     this.setState({
       searchQuery: query
     }, () => {
       // only search after saerchquery is updated
       this.performSearch(this.state.searchQuery)
     })
+    
   }
 
   render() {
@@ -113,22 +114,12 @@ class App extends Component{
               : ''
             }
             <Switch>
-              <Route exact path="/">
-                <PhotoContainer photoArr={this.state.searchPhotos} name={'Deer'}></PhotoContainer>
-              </Route>
-              <Route path="/search/:tag">
-                <PhotoContainer photoArr={this.state.searchPhotos} name={this.state.searchQuery}></PhotoContainer>
-              </Route>
-              <Route path="/waterfall">
-                <PhotoContainer photoArr={this.state.waterfallPhotos} name={'Waterfall'}></PhotoContainer>
-              </Route>
-              <Route path="/leaves">
-                <PhotoContainer photoArr={this.state.leavesPhoto} name={'Leaves'}></PhotoContainer>
-              </Route>
-              <Route path="/weed">
-                <PhotoContainer photoArr={this.state.weedPhotos} name={'Weed'}></PhotoContainer>
-              </Route>
-              
+              <Route exact path="/" render={() => <PhotoContainer photoArr={this.state.searchPhotos} name={this.state.searchQuery}/> } />
+              <Route exact path="/search/:tag" render={() => <PhotoContainer photoArr={this.state.searchPhotos} name={this.state.searchQuery} loading={this.state.loading}/> } />
+              <Route exact path="/waterfall" render={() => <PhotoContainer photoArr={this.state.waterfallPhotos} name='Waterfall'/> } />
+              <Route exact path="/leaves" render={() => <PhotoContainer photoArr={this.state.leavesPhoto} name='Leaves'/> } />
+              <Route exact path="/weed" render={() => <PhotoContainer photoArr={this.state.weedPhotos} name='Weed'/> } />
+     
             </Switch>
 
           </BrowserRouter>
