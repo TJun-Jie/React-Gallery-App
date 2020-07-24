@@ -5,7 +5,7 @@ import PhotoContainer from './components/PhotoContainer';
 import apiKey from './config';
 import SearchForm from './components/SearchForm';
 import {
-   Switch,Route
+   Switch,Route, BrowserRouter
 } from 'react-router-dom';
 import axios from 'axios';
 
@@ -105,32 +105,33 @@ class App extends Component{
 
     return (
       
-        <div className="Container">
-          <SearchForm handleSearch={this.handleSearch} />
-          <Nav />
-          {this.state.loading
-            ? <div className="loader"></div>
-            : ''
-          }
-          <Switch>
-            <Route exact path="/">
-              <PhotoContainer photoArr={this.state.searchPhotos}></PhotoContainer>
-            </Route>
-            <Route path="/search/:tag">
-              <PhotoContainer photoArr={this.state.searchPhotos}></PhotoContainer>
-            </Route>
-            <Route path="/waterfall">
-              <PhotoContainer photoArr={this.state.waterfallPhotos}></PhotoContainer>
-            </Route>
-            <Route path="/leaves">
-              <PhotoContainer photoArr={this.state.leavesPhoto}></PhotoContainer>
-            </Route>
-            <Route path="/weed">
-              <PhotoContainer photoArr={this.state.weedPhotos} ></PhotoContainer>
-            </Route>
-            
-          </Switch>
-        </div>
+          <BrowserRouter>
+            <SearchForm handleSearch={this.handleSearch} />
+            <Nav />
+            {this.state.loading
+              ? <div className="loader"></div>
+              : ''
+            }
+            <Switch>
+              <Route exact path="/">
+                <PhotoContainer photoArr={this.state.searchPhotos} name={'Deer'}></PhotoContainer>
+              </Route>
+              <Route path="/search/:tag">
+                <PhotoContainer photoArr={this.state.searchPhotos} name={this.state.searchQuery}></PhotoContainer>
+              </Route>
+              <Route path="/waterfall">
+                <PhotoContainer photoArr={this.state.waterfallPhotos} name={'Waterfall'}></PhotoContainer>
+              </Route>
+              <Route path="/leaves">
+                <PhotoContainer photoArr={this.state.leavesPhoto} name={'Leaves'}></PhotoContainer>
+              </Route>
+              <Route path="/weed">
+                <PhotoContainer photoArr={this.state.weedPhotos} name={'Weed'}></PhotoContainer>
+              </Route>
+              
+            </Switch>
+
+          </BrowserRouter>
     );
   }
 }

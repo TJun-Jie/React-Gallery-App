@@ -18,7 +18,7 @@ export default class PhotoContainer extends Component {
     render() {
         return(
             <div className="photo-container ">
-                <h2>Results</h2>
+                <h2>{this.props.name} Pictures</h2>
                 <ul>
                    {this.createPhoto()} 
                 </ul>
