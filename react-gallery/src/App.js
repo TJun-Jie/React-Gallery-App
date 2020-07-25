@@ -17,7 +17,7 @@ class App extends Component{
     weedPhotos: [],
     loading: true
   }
-
+    // fetch data
     getData() {
       const waterFall = axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=waterfall&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
       const leaves = axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=leaves&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
@@ -70,6 +70,7 @@ class App extends Component{
     this.performSearch();
   }
   render() {
+    const searchQuery = this.state.searchQuery
     return (
           <BrowserRouter>
             <SearchForm handleSearch={this.handleSearch} />
@@ -80,11 +81,11 @@ class App extends Component{
               : ''
             }
             <Switch>
-              <Route exact path="/" render={() => <PhotoContainer photoArr={this.state.searchPhotos} name={this.state.searchQuery}/> } />
-              <Route exact path="/search/:tag" render={(props) => <PhotoContainer photoArr={this.state.searchPhotos} match={props.match} name={this.state.searchQuery} loading={this.state.loading}/> } />
-              <Route exact path="/waterfall" render={() => <PhotoContainer photoArr={this.state.waterfallPhotos} name='Waterfall'/> } />
-              <Route exact path="/leaves" render={() => <PhotoContainer photoArr={this.state.leavesPhoto} name='Leaves'/> } />
-              <Route exact path="/weed" render={() => <PhotoContainer photoArr={this.state.weedPhotos} name='Weed'/> } />
+              <Route exact path="/" render={(props) => <PhotoContainer photoArr={this.state.searchPhotos} searchQuery={searchQuery} name={this.state.searchQuery}  match={props.match}/> } />
+              <Route exact path="/search/:tag" render={(props) => <PhotoContainer searchQuery={searchQuery}  photoArr={this.state.searchPhotos} match={props.match} name={this.state.searchQuery} loading={this.state.loading} /> } />
+              <Route exact path="/waterfall" render={(props) => <PhotoContainer searchQuery={searchQuery}  photoArr={this.state.waterfallPhotos} name='Waterfall'  match={props.match}/> } />
+              <Route exact path="/leaves" render={(props) => <PhotoContainer searchQuery={searchQuery}  photoArr={this.state.leavesPhoto}   match={props.match} name='Leaves'/> } />
+              <Route exact path="/weed" render={(props) => <PhotoContainer  searchQuery={searchQuery} photoArr={this.state.weedPhotos}  match={props.match} name='Weed'/> } />
               <Route component={NotFound} ></Route>   
             </Switch>
           </BrowserRouter>
