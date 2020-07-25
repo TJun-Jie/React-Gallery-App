@@ -2,11 +2,10 @@ import React, {Component} from 'react';
 import Photo from './Photo';
 
 export default class PhotoContainer extends Component {
-
     state = {
         loading: this.props.loading
     }
-
+    
     createPhoto = () => {     
         return this.props.photoArr.map(photo => (
             <Photo key={photo.id} farm={photo.farm} serverId={photo.server} id={photo.id} secret={photo.secret}/>

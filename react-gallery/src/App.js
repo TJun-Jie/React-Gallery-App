@@ -54,7 +54,6 @@ class App extends Component{
       console.log("Error parsing and fetching data")
     })
   }
-
   
   // Set state of search query by getting data from search form
   handleSearch= (query) => {
@@ -63,14 +62,12 @@ class App extends Component{
     }, () => {
       // only search after saerchquery is updated
       this.performSearch(this.state.searchQuery)
-    })
-    
+    })  
   }
   // Load whenever page refreshes
   componentDidMount() {
     this.getData();
     this.performSearch();
-
   }
   render() {
     return (
@@ -94,5 +91,4 @@ class App extends Component{
     );
   }
 }
-
 export default App;
