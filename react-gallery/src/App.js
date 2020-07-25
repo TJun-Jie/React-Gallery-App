@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { Switch, Route, BrowserRouter} from 'react-router-dom';
 import axios from 'axios';
 import apiKey from './config';
-import './App.css';
 import Nav from './components/Nav';
 import PhotoContainer from './components/PhotoContainer';
 import SearchForm from './components/SearchForm';
