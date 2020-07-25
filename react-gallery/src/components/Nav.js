@@ -7,7 +7,7 @@ function Nav(props) {
             <ul>
                 <li><NavLink to='/waterfall'>Waterfall</NavLink></li>
                 <li><NavLink to='/leaves'>Leaves</NavLink></li>
-                <li><NavLink to='/weed'>Weed</NavLink></li>
+                <li><NavLink to='/dessert'>Dessert</NavLink></li>
             </ul>
         </nav>
     )

@@ -3,9 +3,14 @@ import React from 'react';
 function NotFound(props) {
     return(
         <div>
-            <h3>Sorry the route you visited is unavailable</h3>
-            <h4>404 error</h4>
-        </div>
+        <ul>
+          <li>
+            <h3>Sorry something went wrong :(</h3>
+            <h3> Please try again.</h3>
+            <h3>404 error</h3>
+          </li>
+        </ul>
+      </div>
     )
 }
 
