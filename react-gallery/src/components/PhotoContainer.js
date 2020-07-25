@@ -7,23 +7,17 @@ export default class PhotoContainer extends Component {
         loading: this.props.loading
     }
 
-    createPhoto = () => {
-        
+    createPhoto = () => {     
         return this.props.photoArr.map(photo => (
             <Photo key={photo.id} farm={photo.farm} serverId={photo.server} id={photo.id} secret={photo.secret}/>
-        ))
-        
-        // No photos found
-
-        
+        ))   
     }
-    
-
-    
+      
     render() {
         return(
             <div className="photo-container ">
                 {this.props.photoArr.length > 0?  <h2>{`${this.props.name}`} Pictures</h2>: ''}
+                {/* when there are no search results and is not loading, load no results found */}
                 {this.props.photoArr.length < 1 && !this.state.loading? 
                     (<div className="noResults">
                     <h3>No results found</h3>

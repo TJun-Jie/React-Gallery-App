@@ -1,6 +1,7 @@
 import React from 'react';
 
-function Photo({ farm, serverId, secret,id}) {
+// Props destructuring
+function Photo({ serverId, secret,id}) {
     
     return(
         <li>
