@@ -17,53 +17,8 @@ class App extends Component{
     searchQuery: '',
     searchPhotos: [],
     weedPhotos: [],
-    loading: true
-  }
-
-  getDataWaterfall() {
-    this.setState({
-      loading: true
-    })
-    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=waterfall&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
-    .then(response => {
-      this.setState({
-        waterfallPhotos: response.data.photos.photo,
-        loading: false
-      })
-    })
-    .catch(err => {
-      console.log("Error parsing and fetching data")
-    })
-  }
-  getDataLeaves() {
-    this.setState({
-      loading: true
-    })
-    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=leaves&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
-    .then(response => {
-      this.setState({
-        leavesPhoto: response.data.photos.photo,
-        loading: false
-      })
-    })
-    .catch(err => {
-      console.log("Error parsing and fetching data")
-    })
-  }
-  getDataWeed() {
-    this.setState({
-      loading: true
-    })
-    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=weed&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
-    .then(response => {
-      this.setState({
-        weedPhotos: response.data.photos.photo,
-        loading: false
-      })
-    })
-    .catch(err => {
-      console.log("Error parsing and fetching data")
-    })
+    loading: false,
+    params: ''
   }
 
 
@@ -76,7 +31,7 @@ class App extends Component{
     .then(response => {
       this.setState({
         searchPhotos: response.data.photos.photo,
-        loading:false
+        loading:false,
       })
     })
     .catch(err => {
@@ -84,20 +39,20 @@ class App extends Component{
     })
   }
 
-  componentDidMount() {
-    this.getDataWaterfall();
-    this.getDataLeaves();
-    this.getDataWeed();
-    this.performSearch();
+  // componentDidMount() {
+  //   this.getDataWaterfall();
+  //   this.getDataLeaves();
+  //   this.getDataWeed();
+  //   this.performSearch();
 
-  }
+  // }
 
   handleSearch= (query) => {
     this.setState({
       searchQuery: query
     }, () => {
       // only search after saerchquery is updated
-      this.performSearch(this.state.searchQuery)
+      // this.performSearch(this.state.searchQuery)
     })
     
   }
@@ -114,11 +69,11 @@ class App extends Component{
               : ''
             }
             <Switch>
-              <Route exact path="/" render={() => <PhotoContainer photoArr={this.state.searchPhotos} name={this.state.searchQuery}/> } />
-              <Route exact path="/search/:tag" render={(props) => <PhotoContainer photoArr={this.state.searchPhotos} match={props.match} name={this.state.searchQuery} loading={this.state.loading}/> } />
-              <Route exact path="/waterfall" render={() => <PhotoContainer photoArr={this.state.waterfallPhotos} name='Waterfall'/> } />
-              <Route exact path="/leaves" render={() => <PhotoContainer photoArr={this.state.leavesPhoto} name='Leaves'/> } />
-              <Route exact path="/weed" render={() => <PhotoContainer photoArr={this.state.weedPhotos} name='Weed'/> } />
+              <Route exact path="/" render={() => <PhotoContainer tags='deer'/> } />
+              <Route exact path="/search/:tag" render={(props) => <PhotoContainer tags={this.state.searchQuery}/>}  />
+              <Route exact path="/waterfall" render={() => <PhotoContainer tags='Waterfall'/> } />
+              <Route exact path="/leaves" render={() => <PhotoContainer tags='Leaves'/> } />
+              <Route exact path="/weed" render={() => <PhotoContainer tags='Weed'/> } />
      
             </Switch>
 
