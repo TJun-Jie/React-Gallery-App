@@ -13,22 +13,22 @@ class App extends Component{
     leavesPhoto: [],
     searchQuery: '',
     searchPhotos: [],
-    weedPhotos: [],
+    desertPhotos: [],
     loading: true
   }
     // fetch data
     getData() {
       const waterFall = axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=waterfall&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
       const leaves = axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=leaves&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
-      const weed = axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=dessert&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
-      axios.all([waterFall, leaves, weed]).then(axios.spread((...responses) => {
+      const desert = axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=desert+nature&per_page=24&in_gallery=true&format=json&nojsoncallback=1`)
+      axios.all([waterFall, leaves, desert]).then(axios.spread((...responses) => {
         const waterfallData = responses[0].data.photos.photo
         const leavesData = responses[1].data.photos.photo
-        const weedData = responses[2].data.photos.photo
+        const desertData = responses[2].data.photos.photo
         this.setState({
           leavesPhoto: leavesData,
           waterfallPhotos: waterfallData,
-          weedPhotos: weedData,
+          desertPhotos: desertData,
           loading: false
         })
       })).catch(errors => {
@@ -113,11 +113,11 @@ class App extends Component{
                   loading={this.state.loading} 
                   /> 
               } />
-              <Route exact path="/dessert" render={(props) => 
+              <Route exact path="/desert" render={(props) => 
                 <PhotoContainer  
                   searchQuery={searchQuery} 
-                  photoArr={this.state.weedPhotos}  
-                  match={props.match} name='Dessert'
+                  photoArr={this.state.desertPhotos}  
+                  match={props.match} name='Desert'
                   loading={this.state.loading} 
                   /> 
                 } />
