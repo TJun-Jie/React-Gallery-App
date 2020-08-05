@@ -19,7 +19,8 @@ class SearchForm extends Component {
         // Pass data up to app.js component
         this.props.handleSearch(this.state.value);
         // Redirect to the page
-        this.props.history.push(`/search/${this.state.value}`)
+        this.props.history.push(`/search/${this.state.value}`);
+        document.getElementById('search').reset();
 
     }
     render() {      
