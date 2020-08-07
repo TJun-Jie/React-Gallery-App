@@ -19,7 +19,7 @@ export default class PhotoContainer extends Component {
             <div className="photo-container ">
                 {this.props.photoArr.length > 0?  <h2>{`${this.props.name}`} Pictures</h2>: ''}
                 {/* when there are no search results and is not loading, load no results found */}
-                {(this.props.photoArr.length < 1 && !this.state.loading)  ? 
+                {(this.props.photoArr.length < 1)  ? 
                     (<div className="noResults">
                     <h3>No results found</h3>
                     <h5> The search did not return any results, please try again</h5>
